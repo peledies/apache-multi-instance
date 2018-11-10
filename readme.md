@@ -1,4 +1,13 @@
-# Prepare system for instal
+# TLDR;
+
+The following commands have been accumulated in the following file:
+```
+apache-multi-init.sh
+```
+
+> This has been tested and built on Ubuntu 16.04 LTS
+
+# Prepare system for install
 
 ```
 sudo apt update
@@ -145,9 +154,7 @@ sudo rm /etc/apache2-php73/sites-available/default-ssl.conf
 sudo service apache2-php73 start
 ```
 
-###########
-# Testing #
-###########
+# Testing
 Run the script in a vagrant box to experiment with.
 ```
 # -*- mode: ruby -*-
