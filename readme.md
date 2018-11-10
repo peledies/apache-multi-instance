@@ -44,23 +44,23 @@ sudo apt install php7.3 php7.3-curl php7.3-mysql php7.3-gd php7.3-mbstring php7.
 ```
 
 # ONE LINER
+```
 sudo apt install php5.6 php5.6-curl php5.6-mysql php5.6-mcrypt php5.6-gd php5.6-mbstring php5.6-zip php5.6-opcache php5.6-readline php5.6-xml php7.0 php7.0-curl php7.0-mysql php7.0-mcrypt php7.0-gd php7.0-mbstring php7.0-zip php7.0-opcache php7.0-readline php7.0-xml php7.1 php7.1-curl php7.1-mysql php7.1-mcrypt php7.1-gd php7.1-mbstring php7.1-zip php7.1-opcache php7.1-readline php7.1-xml php7.2 php7.2-curl php7.2-mysql php7.2-gd php7.2-mbstring php7.2-zip php7.2-opcache php7.2-readline php7.2-xml php7.3 php7.3-curl php7.3-mysql php7.3-gd php7.3-mbstring php7.3-zip php7.3-opcache php7.3-readline php7.3-xml -y
+```
 
 # switch primary php for cli (optional)
+```
 sudo update-alternatives --set php /usr/bin/php7.3
+```
 
-
-
-##################
-# Install Apache #
-##################
-# We install Apache 2nd so that we can clone the php modules when we create new apache instances.
-
+# Install Apache
+> We install Apache 2nd so that we can clone the php modules when we create new apache instances.
+```
 sudo apt install apache2 libapache2-mod-php -y
+```
 
-##################################
-# Use Apache Proper as the proxy #
-##################################
+# Use Apache Proper as the proxy
+```
 sudo a2enmod proxy
 sudo a2enmod proxy_http
 sudo a2enmod proxy_balancer
@@ -75,12 +75,11 @@ sudo vi /etc/apache2/sites-available/proxy.conf
 sudo a2ensite proxy.conf
 
 sudo service apache2 start
+```
 
+# Apache 5.6
 
-##############
-# Apache 5.6 #
-##############
-
+```
 sudo sh /usr/share/doc/apache2/examples/setup-instance php56
 
 sudo a2dismod-php56 php7.3 php7.2 php7.1 php7.0
@@ -110,13 +109,11 @@ sudo rm /etc/apache2-php56/sites-available/000-default.conf
 sudo rm /etc/apache2-php56/sites-available/default-ssl.conf
 
 sudo service apache2-php56 restart
+```
 
 
-
-##############
 # Apache 7.3 #
-##############
-
+```
 sudo sh /usr/share/doc/apache2/examples/setup-instance php73
 
 sudo a2dismod-php73 php5.6 php7.2 php7.1 php7.0
@@ -146,40 +143,13 @@ sudo rm /etc/apache2-php73/sites-available/000-default.conf
 sudo rm /etc/apache2-php73/sites-available/default-ssl.conf
 
 sudo service apache2-php73 start
-
-
-
-####################
-# Install Composer #
-####################
-curl -sS https://getcomposer.org/installer | php
-sudo mv composer.phar /usr/local/bin/composer
-sudo chmod +x /usr/local/bin/composer
-sudo chown -R ubuntu:ubuntu /home/ubuntu/.composer
-
-
-#################
-# Install mysql #
-#################
-sudo apt install mysql-server
-sudo sed -i "s/.*bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf 
-sudo service mysql restart
-mysql_secure_installation
-
-
-
-############
-# Clean up #
-############
-sudo apt clean
-sudo apt autoremove --purge
-sudo apt autoremove
-
+```
 
 ###########
 # Testing #
 ###########
-
+Run the script in a vagrant box to experiment with.
+```
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 Vagrant.configure("2") do |config|
@@ -196,3 +166,4 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, host: 8073, guest: 8073
   
 end
+```
